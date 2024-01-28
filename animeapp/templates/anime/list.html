@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='container'>
+  <table id="anime-table" class="table table-striped rounded table-responsive">
+    <thead>
+      <tr>
+        <th>รหัสอนิเมะ</th>
+        <th>ชื่อ</th>
+        <th>ประเภท</th>
+        <th>สถานะ</th>
+        <th>ความคิดเห็น</th>
+        <th>รูปภาพ</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for anime in anime_list %}
+      <tr>
+        <td>{{ anime.code }}</td>
+        <td>{{ anime.name }}</td>
+        <td>{{ anime.type }}</td>
+        <td>{{ anime.status }}</td>
+        <td>{{ anime.comment }}</td>
+        <td><img src="{{ anime.image.url }}" alt="{{ anime.name }}" width="100"></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

@@ -1,0 +1,112 @@
+<!-- base.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>anime app</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    <style>
+        .itim-regular {
+            font-family: "Itim", cursive;
+            font-weight: 400;
+            font-style: normal;
+          }
+        * {
+            font-family: "Itim", cursive;
+            background: #DAB9E6;
+        }              
+        body {
+            background: #DAB9E6;
+        }
+        ul {
+            display: flex;
+            padding: 2%;
+        }
+        li {
+            flex-direction: row;
+            list-style-type: none;
+            padding-inline: 2%;
+        }
+        ul > li > a {
+            text-decoration: none;
+            color: #232;
+            font-size: 20px;
+        }
+        ul > li > a:hover {
+            color: purple;
+            transition: .2s;
+        }
+        ul > li > a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <nav>
+        <ul>
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'anime-list' %}">
+                        <i class="fas fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'add-anime' %}">
+                        <i class="fas fa-plus"></i>
+                        เพิ่มรายการ
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        ออกจากระบบ
+                    </a>
+                </li>
+
+                {% if request.path == '/anime-list/' or request.path == '/search/' %}
+                <li style='margin-left: auto;margin-right: 8%;'>
+                    <form class="example" method="GET" action="{% url 'search' %}">
+                        <input type="text" placeholder="Search.." name="q" class='p-2 border-0 bg-light rounded-pill'>
+                        <button type="submit" style='background: #F9AAD0' class='p-2 border-0 rounded-pill'>
+                            <i class="fa fa-search" style='background: #F9AAD0'></i> ค้นหา
+                        </button>
+                    </form>
+                </li>
+            {% endif %}
+
+            {% endif %}
+
+            {% if not user.is_authenticated %}
+                <li style='margin-left: auto;'>
+                    <a href="{% url 'login' %}" style='color: #502779 ; text-align: center'>
+                        <i class="fas fa-heart"></i>
+                        เข้าสู่ระบบ
+                    </a>
+                </li>
+                <li style='margin-right: auto;'>
+                    <a href="{% url 'register' %}" style='color: #502779; text-align: center'>
+                        <i class="fas fa-heart"></i>
+                        สมัครสมาชิก
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
+    {% block content %}
+    <h2 style='color: purple; text-align: center'>
+        <i class="fas fa-heart"></i> Welcome to Anime record web where you can record your anime list <i class="fas fa-heart"></i> 
+    </h2>
+    {% endblock %}
+</body>
+</html>
